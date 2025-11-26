@@ -1,8 +1,10 @@
 # sevidor-nginx
 
+## Practica 2.1: Instalacion y Configuracion #
 
-hola
-okoekrfe
+El primer paso consite en actualizar los paquetes del vagrant y despues instalamos NGINX  
 
-hola x2
-efefe
+```
+sudo apt update
+sudo apt install nginx
+```
