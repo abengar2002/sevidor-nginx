@@ -1,3 +1,7 @@
+# Practica Realizada por :#
+# DAVID MORENO LÓPEZ #
+# ANTONIO BENITEZ GARCÍA #
+
 # Practica 2.1: Instalacion y Configuracion #
 
 ## 2. Instalación servidor web Nginx ##
