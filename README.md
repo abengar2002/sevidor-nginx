@@ -73,3 +73,47 @@ Para ello tendremos que editar:  /etc/hosts y añadirle:
 
 Tras todo esto comprobamos que todo se ha registrado correctamente:
 ![Imagen Registros del servidor](img/comprobacion-registro.png)
+
+
+---
+
+# Practica 2.1: Instalacion y Configuracion  PARTE 2#
+
+
+## 2. Instalacion de Docker ##
+El primer paso es asegurarse de que docker esta instalado
+```
+docker --version
+```
+
+## 3. Creacion de la estructura de carpetas del sitio web ##
+En la maquina anfritiona cremaos la estructura de carpetas, y clonamos el repositorio:
+```
+mkdir -p ~/nginx/antonio.test/html 
+mkdir -p ~/nginx/antonio.test/conf
+
+cd ~/nginx/example.test/html
+git clone https://github.com/cloudacademy/static-website-example .
+
+```
+
+## 4. Configuracion de servidor web NGINX con Docker ##
+Ahora tenemos que crear el archivo de configuracion de NGINX : 
+
+```
+nano ~/nginx/example.test/conf/nginx.conf
+```
+
+Con el siguiente contenido: 
+```
+server {
+  listen 80;
+  listen [::]:80;
+  root /usr/share/nginx/html; 
+  index index.html index.htm index.nginx-debian.html;
+  server_name example.test;
+  location / {
+  try_files $uri $uri/ =404;
+  }
+}
+```
