@@ -193,3 +193,56 @@ Para detener los contenedores:
 docker-compose down
 ```
 ![Docker Compose Down](img/docker-compose-down.png)
+
+
+# Practica 2.2: Autenticacion en Nginx #
+El primer paso consiste en comprobar si tenemos los paquetes instalados:
+```
+dpkg -l | grep openssl
+```
+
+## 1.2. Creación de usuarios y contraseñas para el acceso web ##
+Tenemos que crear un archivo : ``` .htpasswd ``` , con el siguiente contenido 
+```
+sudo sh -c "echo -n 'vuestro_nombre:' >> /etc/nginx/.htpasswd"
+
+sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
+```
+
+y comprobamos que aparecen los usuarios :
+```
+cat /etc/nginx/.htpasswd
+```
+![cat /etc/nginx/.htpasswd](img/cat.png)
+
+## 1.3. Configurando el servidor Nginx para usar autenticacion basica ##
+Debemos editar la configuracion la configuracion del server block
+```
+sudo nano /etc/nginx/sites-available/antonio.test
+```
+
+Lo editamos con el siguiente contenido :
+```
+server {
+  listen 80;
+  listen [::]:80;
+  root /var/www/antonio.test/html;
+  index index.html index.htm index.nginx-debian.html;
+  server_name antonio.test;
+  location / {
+  auth_basic "Area restringida";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  try_files $uri $uri/ =404;
+  }
+}
+```
+Y reiniciamos : 
+```
+sudo systemctl restart nginx
+```
+## 1.4. Probando la nueva configuracion ##
+Tras todo esto entramos en antonio.test , y ponemos las credenciales:
+![1.4 actividad](img/1.4-2.2.png)
+![1.4 actividad1](img/1.4.2-2.2.png)
+![1.4 actividad2](img/1.4.3-2.2.png)
+
