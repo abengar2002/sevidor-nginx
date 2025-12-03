@@ -195,6 +195,13 @@ docker-compose down
 ![Docker Compose Down](img/docker-compose-down.png)
 
 
+
+
+
+
+
+
+
 # Practica 2.2: Autenticacion en Nginx #
 El primer paso consiste en comprobar si tenemos los paquetes instalados:
 ```
@@ -270,3 +277,100 @@ Ahora tenemos que configurar Nginx para que no deje acceder a la IP de la maquin
 ## 3.2. Tarea 2 ##
 Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido:
 ![3.2 actividad1](img/final-punto3.png)
+
+
+
+
+
+
+
+
+# Practica 2.2: Autenticacion en Nginx #
+Tenemos que usar las utilidades de OpenSSL:
+```
+docker pull stakater/ssl-certs-generator
+```
+
+## 1.2. Creación de usuarios y contraseñas para el acceso web ##
+Creamos un archivo llamado "htpasswd"
+```
+mkdir -p ./conf
+```
+Y editamos htpasswd e incluimos:
+```
+mkdir -p ./conf
+```
+Tras esto tenemos que crear un password :
+```
+docker run --rm stakater/ssl-certs-generator openssl passwd -apr1 '1234' >>
+htpasswd
+```
+Y tendremos esto:
+![Aqui va la contraseña](img/users.png)
+
+Resultado tras crear los 2 usuarios:
+
+
+## 1.3. Configurando el contenedor Nginx para usar autenticación básica ##
+Editamos el archivo de configuración de Nginx:
+```
+docker run --rm --entrypoint=cat nginx /etc/nginx/conf.d/default.conf >
+antionio.test.conf
+```
+Y editamos " conf/antonio.test.conf" añadiendo el siguiente contenido :
+```
+nano ./conf/antonio.test.conf
+
+
+
+server {
+  listen 80;
+  listen [::]:80;
+  root /usr/share/nginx/html; 
+  index index.html index.htm index.nginx-debian.html;
+  server_name antonio.test;
+  location / {
+  auth_basic "Área restringida";
+  auth_basic_user_file /etc/nginx/.htpasswd; 
+  try_files $uri $uri/ =404;
+  }
+}
+```
+## 1.4. Probando la nueva configuración ##
+1.-Pide verificacion: 
+![Captura al fallar la autentificacion](img/1.4-2.2.png)
+
+2.- Al cancelar la autentificacion nos dara error:
+![Captura al fallar la autentificacion](img/cancelacion.png)
+
+
+## 2. Tareas ##
+## 2.1. T.1. ##
+Entraremos primero con un usuario erroneo y luego con otro valido:
+![Usuario erroneo](img/1.4.3-2.2.png)
+
+![Usuario valido](img/1.4.2-2.2..png)
+
+
+## 2.2. T.2. ##
+Borramos las 2 lineas que hacen referencia  a la autenticacion basica en el location del directorio raiz, y añadimos un nuevo
+location debajo de contact.html
+
+Tambien hemos accedido al contact.html:
+![contact.html](img/punto.3.1.png)
+
+Tras esto hemos editado antonio.test.conf y hemos lanzado el servidor
+
+## 3. Tareas ##
+## 3.1. Tarea 1 ##
+Ahora tenemos que configurar Nginx para que no deje acceder a la IP de la maquina anfritiona:
+![3.1 actividad1](img/punto.3.1.png)
+
+El mensaje de error:
+![3.1 mensaje error](img/2.1-t1.png)
+
+## 3.2. Tarea 2 ##
+Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido:
+![3.2 actividad1](img/final-punto3.png)
+
+
