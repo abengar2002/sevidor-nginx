@@ -379,13 +379,13 @@ Para ello hemos editado : ./conf/antonio.test.conf
 ## 3. Tareas ##
 ## 3.1. Tarea 1 ##
 Ahora tenemos que configurar Nginx para que no deje acceder a la IP de la maquina anfritiona:
-![3.1 actividad1](img/punto.3.1.png) 
+![3.1 actividad1](img/3.1.png) 
 
 El mensaje de error:
-![3.1 mensaje error](img/2.1-t1.png)
+![3.1 mensaje error](img/2.1-t1.png) 
 
 ## 3.2. Tarea 2 ##
-Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido:
-![3.2 actividad1](img/final-punto3.png)
-
+Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido, tras poner las credenciales entramos :
+![3.2 actividad1](img/Verificacion.png) 
+ 
 
