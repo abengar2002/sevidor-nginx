@@ -266,7 +266,12 @@ Tambien hemos accedido al contact.html:
 ![contact.html](img/punto.3.1.png)
 
 ## 2.3. Combinación de la autenticación básica con la restricción de acceso por IP ##
+Debemos implementar 2 escenarios:
 
+-  Un usuario debe estar ambas cosas, autenticado y tener una IP válida
+-  Un usuario debe o bien estar autenticado, o bien tener una IP válida
+
+Para ello hemos editado : ./conf/antonio.test.conf
 
 ## 3. Tareas ##
 ## 3.1. Tarea 1 ##
@@ -346,10 +351,11 @@ server {
 
 ## 2. Tareas ##
 ## 2.1. T.1. ##
-Entraremos primero con un usuario erroneo y luego con otro valido:
-![Usuario erroneo](img/1.4.3-2.2.png)
+Los logs al intentar entrar con un usuario invalido:
+![Logs erroneo](img/logs.png)
 
-![Usuario valido](img/1.4.2-2.2..png)
+Entraremos con un usuario valido:
+![Usuario valido](img/1.4-docker.png)
 
 
 ## 2.2. T.2. ##
@@ -357,14 +363,23 @@ Borramos las 2 lineas que hacen referencia  a la autenticacion basica en el loca
 location debajo de contact.html
 
 Tambien hemos accedido al contact.html:
-![contact.html](img/punto.3.1.png)
+![contact.html](img/contact-html.png)
 
 Tras esto hemos editado antonio.test.conf y hemos lanzado el servidor
+
+## 2.3. Combinación de la autenticación básica con la restricción de acceso por IP ##
+Debemos implementar 2 escenarios:
+
+-  Un usuario debe estar ambas cosas, autenticado y tener una IP válida
+-  Un usuario debe o bien estar autenticado, o bien tener una IP válida
+
+Para ello hemos editado : ./conf/antonio.test.conf
+
 
 ## 3. Tareas ##
 ## 3.1. Tarea 1 ##
 Ahora tenemos que configurar Nginx para que no deje acceder a la IP de la maquina anfritiona:
-![3.1 actividad1](img/punto.3.1.png)
+![3.1 actividad1](img/punto.3.1.png) 
 
 El mensaje de error:
 ![3.1 mensaje error](img/2.1-t1.png)
