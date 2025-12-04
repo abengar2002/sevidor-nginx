@@ -23,7 +23,7 @@ A continuacion tenemos que crear las carpetas, y clonar el repositorio:
 ```
 sudo mkdir -p /var/www/antonio.test/html 
 cd /var/www/antonio.test/html
-git clone https://github.com/cloudacademy/static-website-example
+git clone https://github.com/cloudacademy/static-website-antonio
 ```
 
 Una vez creado y clonado tenemos que dar los permisos: 
@@ -51,7 +51,7 @@ server {
   listen [::]:80;
   root /var/www/antonio.test/html; (Esta es nuestra ruta)
   index index.html index.htm index.nginx-debian.html;
-  server_name example.test;
+  server_name antonio.test;
   location / {
   try_files $uri $uri/ =404;
   }
@@ -60,7 +60,7 @@ server {
 
 Y creamos un archivo simbolico entre este archivo y el de sitios que estan habilitados:
 ```
-sudo ln -s /etc/nginx/sites-available/example.test /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/antonio.test /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
 
@@ -97,7 +97,7 @@ mkdir -p ~/nginx/antonio.test/html
 mkdir -p ~/nginx/antonio.test/conf
 
 cd ~/nginx/antonio.test/html
-git clone https://github.com/cloudacademy/static-website-example .
+git clone https://github.com/cloudacademy/static-website-antonio .
 ```
 
 ## 4. Configuracion de servidor web NGINX con Docker ##
@@ -382,4 +382,70 @@ El mensaje de error:
 Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido, tras poner las credenciales entramos :
 ![3.2 actividad1](img/VERIFICACION.png) 
  
+
+
+
+
+
+
+
+
+
+# Práctica 2.3: Acceso seguro con Nginx PDF2 #
+Primero debemos modificar /etc/nginx/sitesavailable/antonio.test, y en server_name:
+```
+server_name antonio.test www.antonio.test;
+```
+
+![3.2 actividad1](img/–t.png) 
+
+Y reiniciamos:
+```
+sudo systemctl reload nginx;
+```
+
+Tras esto tenemos que instalar y activar un cortafuegos:
+```
+sudo apt install ufw
+
+sudo ufw status
+
+sudo ufw allow ssh 
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP' 
+
+sudo ufw --force enable
+```
+El cortafuegos:
+![cortafuegos](img/ufw-status.png) 
+
+
+Ahora tenemos que generar la clave SSL:
+```
+sudo openssl req -x509 -nodes -days 365 \ 
+  -newkey rsa:2048 -keyout /etc/ssl/private/antonio.test.key \ 
+  -out /etc/ssl/certs/antonio.com.crt
+```
+
+En la salida del comando openssl tenemos que responder con las respuestas del PDF.
+
+En cuanto a la configuracion de antonio.test:
+```
+server {
+  listen 80;
+  listen 443 ssl;
+  server_name antonio.test www.antonio.test;
+  root /var/www/antonio.test/html;
+  ssl_certificate /etc/ssl/certs/antonio.test.crt;
+  ssl_certificate_key /etc/ssl/private/antonio.test.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+  ssl_ciphers HIGH:!aNULL:!MD5;
+  location / {
+  try_files $uri $uri/ =404;
+  }
+}
+```
+
+Ahora entramos en antonio.test:
+![cortafuegos](img/final-2.3.png) 
 
