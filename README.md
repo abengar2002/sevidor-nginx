@@ -386,6 +386,6 @@ El mensaje de error:
 
 ## 3.2. Tarea 2 ##
 Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y un usuario valido, tras poner las credenciales entramos :
-![3.2 actividad1](img/Verificacion.png) 
+![3.2 actividad1](img/VERIFICACION.png) 
  
 
