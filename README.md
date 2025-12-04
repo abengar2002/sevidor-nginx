@@ -384,7 +384,51 @@ Ahora tenemos que configurar Nginx para que se tenga que tener una IP valida y u
  
 
 
+# Práctica 2.3: Acceso seguro con Nginx PDF1 #
+Primero debemos modificar antonio.test.conf y añadir:
+```
+server_name antonio.test www.antonio.test;
+```
+Ahora tenemos que generar la clave SSL:
+```
+docker pull stakater/ssl-certs-generator
 
+mkdir certs; cd certs
+docker run -v .:/certs stakater/ssl-certs-generator
+```
+
+
+En cuanto a la configuracion de antonio.test:
+```
+server {
+  listen 80;
+  listen 443 ssl;
+  server_name antonio.test www.antonio.test;
+  root /var/www/antonio.test/html;
+  ssl_certificate /etc/ssl/certs/antonio.test.crt;
+  ssl_certificate_key /etc/ssl/private/antonio.test.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+  ssl_ciphers HIGH:!aNULL:!MD5;
+  location / {
+  try_files $uri $uri/ =404;
+  }
+}
+```
+
+Despues debemos mapear los puertos 80 y 443
+```
+docker run -d \
+  -p 80:80 -p 443:443 \
+  -v ./conf/example.test.conf:/etc/nginx/conf.d/default.conf:ro \
+  -v ./certs/example.test.crt:/etc/ssl/certs/example.test.crt:ro \
+  -v ./certs/example.test.key:/etc/ssl/certs/example.test.key:ro \
+  -v mapear páginas web \
+  nginx:latest
+
+```
+Ahora creamos el docker composer
+![docker ps](img/final-2.3.docker.png) 
+![docker ps](img/final-2.3.docker-pagina.png) 
 
 
 
