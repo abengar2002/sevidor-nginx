@@ -340,11 +340,9 @@ server {
 }
 ```
 ## 1.4. Probando la nueva configuración ##
-1.-Pide verificacion: 
+Nos pedira verificacion: 
 ![Captura al fallar la autentificacion](img/1.4-2.2.png)
 
-2.- Al cancelar la autentificacion nos dara error:
-![Captura al fallar la autentificacion](img/cancelacion.png)
 
 
 ## 2. Tareas ##
