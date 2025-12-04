@@ -441,7 +441,7 @@ Primero debemos modificar /etc/nginx/sitesavailable/antonio.test, y en server_na
 server_name antonio.test www.antonio.test;
 ```
 
-![3.2 actividad1](img/–t.png) 
+![3.2 actividad1](img/_t.png) 
 
 Y reiniciamos:
 ```
