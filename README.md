@@ -262,8 +262,6 @@ Las capturas de pantalla de intentar entrar con un usuario valido y otro incorre
 Borramos las 2 lineas que hacen referencia  a la autenticacion basica en el location del directorio raiz, y añadimos un nuevo
 location debajo de contact.html
 
-Tambien hemos accedido al contact.html:
-![contact.html](img/punto.3.1.png)
 
 ## 2.3. Combinación de la autenticación básica con la restricción de acceso por IP ##
 Debemos implementar 2 escenarios:
@@ -362,8 +360,6 @@ Entraremos con un usuario valido:
 Borramos las 2 lineas que hacen referencia  a la autenticacion basica en el location del directorio raiz, y añadimos un nuevo
 location debajo de contact.html
 
-Tambien hemos accedido al contact.html:
-![contact.html](img/contact-html.png)
 
 Tras esto hemos editado antonio.test.conf y hemos lanzado el servidor
 
